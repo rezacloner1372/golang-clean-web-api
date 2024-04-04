@@ -4,10 +4,8 @@ import (
 	"fmt"
 
 	"github.com/gin-gonic/gin"
-	"github.com/gin-gonic/gin/binding"
-	"github.com/go-playground/validator"
+	"github.com/rezacloner1372/golang-clean-web-api/api/middlewares"
 	"github.com/rezacloner1372/golang-clean-web-api/api/routers"
-	validation "github.com/rezacloner1372/golang-clean-web-api/api/validations"
 	"github.com/rezacloner1372/golang-clean-web-api/config"
 )
 
@@ -15,12 +13,12 @@ func InitServer() {
 	cfg := config.GetConfig()
 	r := gin.New()
 
-	val, ok := binding.Validator.Engine().(*validator.Validate)
-	if ok {
-		val.RegisterValidation("mobile", validation.IranianMobileNumberValidator)
-	}
+	// val, ok := binding.Validator.Engine().(*validator.Validate)
+	// if ok {
+	// 	val.RegisterValidation("mobile", validation.IranianMobileNumberValidator)
+	// }
 
-	r.Use(gin.Logger(), gin.Recovery())
+	r.Use(gin.Logger(), gin.Recovery() /*middlewares.TestMiddleware()*/, middlewares.LimitByRequest())
 	api := r.Group("/api")
 
 	v1 := api.Group("/v1/")
