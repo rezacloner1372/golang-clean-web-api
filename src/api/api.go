@@ -12,17 +12,25 @@ import (
 	"github.com/rezacloner1372/golang-clean-web-api/config"
 )
 
-func InitServer() {
-	cfg := config.GetConfig()
+func InitServer(cfg *config.Config) {
 	r := gin.New()
 
+	RegisterValidators()
+	RegisterRoutes(r, cfg)
+
+	r.Use(gin.Logger(), gin.Recovery() /*, middlewares.TestMiddleware()*/, middlewares.LimitByRequest())
+
+}
+
+func RegisterValidators() {
 	val, ok := binding.Validator.Engine().(*validator.Validate)
 	if ok {
 		val.RegisterValidation("mobile", validation.IranianMobileNumberValidator)
 		val.RegisterValidation("password", validation.PasswordValidator)
 	}
+}
 
-	r.Use(gin.Logger(), gin.Recovery() /*, middlewares.TestMiddleware()*/, middlewares.LimitByRequest())
+func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 	api := r.Group("/api")
 
 	v1 := api.Group("/v1/")
