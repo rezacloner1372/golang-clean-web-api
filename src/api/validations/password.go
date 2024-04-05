@@ -1,11 +1,16 @@
 package validation
 
-import "github.com/spf13/afero/internal/common"
+import (
+	"github.com/go-playground/validator/v10"
+	"github.com/rezacloner1372/golang-clean-web-api/common"
+)
 
-func PasswordValidator(fl validator.FieldLevel) bool {
-	value, ok := fl.Field().Interface().(string)
+func PasswordValidator(fld validator.FieldLevel) bool {
+	value, ok := fld.Field().Interface().(string)
 	if !ok {
-		fl.Param
+		fld.Param()
 		return false
 	}
-	return common
+
+	return common.CheckPassword(value)
+}
