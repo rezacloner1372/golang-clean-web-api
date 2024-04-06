@@ -17,8 +17,9 @@ type Config struct {
 }
 
 type ServerConfig struct {
-	Port    string
-	runMode string
+	Port         string
+	ExternalPort string
+	runMode      string
 }
 
 type PostgresConfig struct {
