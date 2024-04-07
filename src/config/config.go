@@ -14,6 +14,7 @@ type Config struct {
 	Postgres PostgresConfig
 	Redis    RedisConfig
 	Password PasswordConfig
+	Logger   LoggerConfig
 }
 
 type ServerConfig struct {
@@ -21,7 +22,12 @@ type ServerConfig struct {
 	ExternalPort string
 	runMode      string
 }
-
+type LoggerConfig struct {
+	FilePath string
+	Encoding string
+	Level    string
+	Logger   string
+}
 type PostgresConfig struct {
 	Host            string
 	Port            string
