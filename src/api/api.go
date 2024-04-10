@@ -20,6 +20,7 @@ func InitServer(cfg *config.Config) {
 
 	RegisterValidators()
 
+	r.Use(middlewares.DefaultStructuredLogger(cfg))
 	r.Use(gin.Logger(), gin.Recovery() /*, middlewares.TestMiddleware()*/, middlewares.LimitByRequest())
 
 	RegisterRoutes(r, cfg)
