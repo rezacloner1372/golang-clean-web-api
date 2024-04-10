@@ -3,8 +3,9 @@ server:
   runMode: debug
 logger:
   filePath: ../logs/logs.log
-  logLevel: debug
   encoding: json
+  level: debug
+  logger: zerolog
 cors:
   allowOrigins: "*"
 postgres:
